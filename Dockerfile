@@ -19,9 +19,7 @@ RUN echo user_allow_other >> /etc/fuse.conf
 COPY run.sh run.sh
 RUN apk --no-cache add parallel
 
-RUN mkdir /etc/gocryptfs
-RUN adduser -D -u10001 gcfsuser
-RUN chown  -R gcfsuser /etc/gocryptfs
-USER gcfsuser
+ENV UID=10001
+ENV GID=10001
 
 CMD ["./run.sh"]

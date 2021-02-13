@@ -1,35 +1,8 @@
 # gocryptfs
 
-![Auto-bump gocryptfs](https://github.com/OJFord/docker-gocryptfs/workflows/Auto-bump%20gocryptfs/badge.svg)
-
-![Build & publish](https://github.com/OJFord/docker-gocryptfs/workflows/Build%20&%20publish/badge.svg)
+Fork of `https://github.com/OJFord/docker-gocryptfs` with ability to set your own UID/GID via environment variables.
 
 All credit for the file-system itself to rfjakob/gocryptfs.
-
-## Releases
-
-Image is available at:
-```
-docker.io/ojford/gocryptfs
-```
-
-In addition to `latest`, tags are available as both:
-```
-<gocryptfs_version>
-<gocryptfs_version>-<docker_gcfs_release_number>
-```
-
-So that, for example, `gocryptfs` version `1.7.1` has:
-```
-1.7.1
-1.7.1-1
-```
-and any update to the packaging in this repository will result in updating:
-```
-1.7.1
-1.7.1-2
-```
-but leave `1.7.1-1` untouched. 
 
 ## Usage
 
@@ -55,6 +28,14 @@ The decrypted file-systems will be mounted symmetrically at:
 
 `fusermount -u` is *not* run automatically.
 
+## Environment Variables
+
+- **UID** Owner user id, defaults to 10001
+- **GID** Owner group id, defaults to 10001
+
+User id and group id set usually only affects new files created, not existing files (existing file ownership are taken from the encrypted files). The `force_owner` option is not used.
+
+Note: The container runs as root to be able to change to any user id at runtime.
 
 ## Licence
 
