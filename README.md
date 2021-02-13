@@ -1,6 +1,6 @@
 # gocryptfs
 
-Fork of `https://github.com/OJFord/docker-gocryptfs` with ability to set your own UID/GID via environment variables.
+Fork of [OJFord/docker-gocryptfs](https://github.com/OJFord/docker-gocryptfs) with ability to set your own UID/GID via environment variables.
 
 All credit for the file-system itself to rfjakob/gocryptfs.
 
