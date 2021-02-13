@@ -2,6 +2,10 @@
 set -e
 
 # Setup user/group ids
+# Delete user if exists
+if id gcfsuser &>/dev/null; then
+  deluser gcfsuser
+fi
 if ! [ $(getent group ${GID}) ]; then
   addgroup -g${GID} gcfsgrp
   adduser --ingroup gcfsgrp -D "-u${UID}" gcfsuser
