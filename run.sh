@@ -27,7 +27,14 @@ sed s/crypts/mnt/g /etc/gocryptfs/crypts \
 # Own the ouput directories
 chown -R ${UID}:${GID} /mnt
 
+# Identify password method (file vs. environment variable)
+if [ -f /run/secrets/gocryptfs_pswd ]; then
+  GCFS_PASS_PARAM="-passfile /run/secrets/gocryptfs_pswd"
+else
+  GCFS_PASS_PARAM="-extpass 'printenv GOCRYPTFS_PSWD'"
+fi
+
 # line-buffer: since we're long-running in the foreground, we want each
 #   gocryptfs job's output without waiting for the first to finish.
 paste /etc/gocryptfs/crypts /etc/gocryptfs/mounts \
-    | parallel --colsep='\t' --line-buffer "su gcfsuser -c \"gocryptfs -allow_other -extpass 'printenv GOCRYPTFS_PSWD' -fg -nosyslog '{1}' '{2}'\""
+    | parallel --colsep='\t' --line-buffer "su gcfsuser -c \"gocryptfs -allow_other ${GCFS_PASS_PARAM} -fg -nosyslog '{1}' '{2}'\""

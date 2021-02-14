@@ -8,8 +8,10 @@ All credit for the file-system itself to rfjakob/gocryptfs.
 
 Passphrase should be specified in:
 ```
-$GOCRYPTFS_PSWD
+/run/secrets/gocryptfs_pswd
 ```
+
+Alternatively, use environment variable `$GOCRYPTFS_PSWD`. The file will override the environment variable.
 
 CIPHERDIRs should be mounted under:
 ```
@@ -32,6 +34,7 @@ The decrypted file-systems will be mounted symmetrically at:
 
 - **UID** Owner user id, defaults to 10001
 - **GID** Owner group id, defaults to 10001
+- **GOCRYPTFS_PSWD** (Optional) Sets passphrase. Gets overridden if passphrase file exists
 
 User id and group id set usually only affects new files created, not existing files (existing file ownership are taken from the encrypted files). The `force_owner` option is not used.
 
